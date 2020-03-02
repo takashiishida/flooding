@@ -104,7 +104,7 @@ def main(args):
         print('flood: {} rs: {}'.format(args.flood_level, args.random_seed))
         print('Epoch: {} LR: {} TrLss: {:.4g} VaLss: {:.4g} TeLss: {:.4g} TrAcc: {:.3g} VaAcc: {:.3g} TeAcc: {:.3g}'.format(
             epoch+1, current_lr, tr_loss, va_loss, te_loss, tr_acc, va_acc, te_acc))
-        print('TrClLss: {:.4g} VaClLss: {:.4g} TeClLss: {:.4g} TrClAcc: {:.3g} VaClAcc: {:.3g} TeAcc: {:.3g}'.format(
+        print('TrClLss: {:.4g} VaClLss: {:.4g} TeClLss: {:.4g} TrClAcc: {:.3g} VaClAcc: {:.3g} TeClAcc: {:.3g}'.format(
             tr_cl_loss, va_cl_loss, te_cl_loss, tr_cl_acc, va_cl_acc, te_cl_acc))
         print('Flood prop: {:.4g}'.format(proportion))        
             
