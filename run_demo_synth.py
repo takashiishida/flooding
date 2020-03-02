@@ -7,17 +7,17 @@ from synthetic.make_graph_synth import make_graph
 
 
 def main():
-    uri = 'sqlite:///mlflow_synth.db'    
-    
+    uri_mlproject = os.getcwd()  # Assumes MLproject is preset in the current directory.
+    mlflow.set_tracking_uri('sqlite:///mlflow_synth.db')
     basic_setting = {
         'labels': 'synth,simple',
-        'epochs': 200,
+        'epochs': 10,
         'label_noise': 0.1,
         'model': 'mlp_model',
         'dataset': 'sinusoid2d',
         'dimension': 2,
     }
-    params_dict = {
+    params_choices = {
         'setting1': {
             'optimizer': 'sgd',
             'learning_rate': 0.01,
@@ -31,13 +31,12 @@ def main():
         }
     }
 
-    params = dict(params_dict['setting1'], **basic_setting)  # Concatenate the configurations.
-    fl_arr = setting_dict['fl_arr']
-    setting_dict.drop('fl_arr')  # Drop it because the python script wouldn't accept fl_arr as an argument.
+    params = dict(params_choices['setting1'], **basic_setting)  # Concatenate the configurations.
+    fl_arr = params.pop('fl_arr')  # Drop it; The python script wouldn't accept it as an argument.
 
     with mlflow.start_run() as run:
         for fl in fl_arr:
-            mlflow.run(uri=uri, entry_point='synthetic', parameters=params, use_conda=False)
+            mlflow.run(uri=uri_mlproject, entry_point='synthetic', parameters=params, use_conda=False)
     
     query = 'tags."synth" = "True" and tags."simple" = "True" and attribute.status = "FINISHED"'
     df = get_data(query)
