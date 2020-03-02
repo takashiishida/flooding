@@ -11,7 +11,7 @@ def main():
     mlflow.set_tracking_uri('sqlite:///mlflow_synth.db')
     basic_setting = {
         'labels': 'synth,simple',
-        'epochs': 10,
+        'epochs': 200,
         'label_noise': 0.1,
         'model': 'mlp_model',
         'dataset': 'sinusoid2d',
