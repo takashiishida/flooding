@@ -12,12 +12,12 @@ class SpiralDataNumpy:
         self.n_pos_va, self.n_neg_va = n_pos_va, n_neg_va
         self.n_pos_te, self.n_neg_te = n_pos_te, n_neg_te
 
-    def sub_makeData(self, n_pos, n_neg, label_noise, noise_level):        
+    def sub_makeData(self, n_pos, n_neg, label_noise, noise_level):
         a1, a2 = np.linspace(0, 4*np.pi, n_pos), np.linspace(0, 4*np.pi, n_neg)
         n = n_pos + n_neg
         y, x = np.zeros(shape=(n,)), np.zeros(shape=(n, 2))
 
-        y[:n_pos], y[n_pos:] = 1, -1        
+        y[:n_pos], y[n_pos:] = 1, -1
         x[y == 1, 0] = a1 * np.cos(a1) + noise_level*np.random.randn(n_pos)
         x[y == 1, 1] = a1 * np.sin(a1) + noise_level*np.random.randn(n_pos)
         x[y == -1, 0] = (a2 + np.pi) * np.cos(a2) + noise_level*np.random.randn(n_neg)
@@ -42,7 +42,7 @@ class SpiralDataNumpy:
     def makeData(self):
         x_tr, r_tr, y_tr, y_tr_clean = self.sub_makeData(self.n_pos_tr, self.n_neg_tr, self.label_noise, self.noise_level)
         x_va, r_va, y_va, y_va_clean = self.sub_makeData(self.n_pos_va, self.n_neg_va, self.label_noise, self.noise_level)
-        x_te, r_te, y_te, y_te_clean = self.sub_makeData(self.n_pos_te, self.n_neg_te, self.label_noise, self.noise_level)        
+        x_te, r_te, y_te, y_te_clean = self.sub_makeData(self.n_pos_te, self.n_neg_te, self.label_noise, self.noise_level)
         
         return x_tr.astype('float32'), r_tr.astype('float32'), y_tr.astype('int64'), y_tr_clean.astype('int64'), \
                x_va.astype('float32'), r_va.astype('float32'), y_va.astype('int64'), y_va_clean.astype('int64'), \

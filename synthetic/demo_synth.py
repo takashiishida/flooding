@@ -85,8 +85,8 @@ def main(args):
                 if loss_corrected != loss_mean:
                     flooded_count += 1
                 mini_batch_count += 1
-                optimizer.zero_grad() # Clear gradients w.r.t. parameters
-                loss_corrected.backward() # backprop.
+                optimizer.zero_grad()
+                loss_corrected.backward()
                 if args.gradient_norm > 0:
                     clip_grad_norm_(model.parameters(), args.gradient_norm)
                 optimizer.step()

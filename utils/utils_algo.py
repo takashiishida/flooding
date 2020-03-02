@@ -68,7 +68,6 @@ def get_grads(loader, model, device):
     for (images, labels, *empty) in loader:
         images, labels =images.to(device), labels.to(device)
         outputs = model(images)
-        # total_loss += criterion(outputs, labels.long())
         loss = criterion(outputs, labels.long())
         model.zero_grad()
         loss.backward()
@@ -160,50 +159,3 @@ def var_check(loader, model, device):
             outputs = model(images)
             loss_vector = np.append(loss_vector, ce_nosum(outputs, labels).cpu().numpy())
     return np.var(loss_vector)
-
-
-'''
-def acc_check(loader, model, eceBool=False):
-    total, num_samples, ece = 0, 0, None
-    if eceBool:
-        all_max_confs, all_predictions, all_labels = np.empty(0), np.empty(0), np.empty(0)
-        bins_acc, bins_confs, bins_count = [], [], []
-    for (images, labels, *empty) in loader:
-        images, labels =images.to(device), labels.to(device)
-        outputs = model(images)
-        sm_outputs = F.softmax(outputs, dim=1)
-        _, predicted = torch.max(sm_outputs.data, 1)
-        total += (predicted == labels).sum().item()
-        num_samples += labels.size(0)
-        if eceBool:
-            max_confs = np.max(sm_outputs.detach().cpu().numpy(), 1)
-            predictions = np.argmax(sm_outputs.detach().cpu().numpy(), 1)
-            all_max_confs = np.concatenate([all_max_confs, max_confs])
-            all_predictions = np.concatenate([all_predictions, predictions])
-            all_labels = np.concatenate([all_labels, labels.detach().cpu().numpy()])
-    if eceBool:
-        num_bins=20
-        bins = np.arange(num_bins+1.) / num_bins
-        for i in range(num_bins-1):
-            narrowed_down = (all_max_confs > bins[i]) & (all_max_confs < bins[i+1])
-            if(sum(narrowed_down)!=0):
-                bins_acc.append(sum(all_predictions[narrowed_down] == all_labels[narrowed_down]) / sum(narrowed_down))
-                bins_confs.append(np.mean(all_predictions[narrowed_down]))
-                bins_count.append(sum(narrowed_down))
-            else:
-                bins_acc.append(0), bins_confs.append(0), bins_count.append(0)
-        ece = float(np.sum(np.absolute(np.array(bins_acc) - np.array(bins_confs)) * np.array(bins_count)) / num_samples)
-    return 100 * total / num_samples, ece
-'''
-
-# def loss_check(loader, model):
-#     total, num_samples = 0, 0
-#     criterion = nn.CrossEntropyLoss(reduction='sum')
-#     model.eval()
-#     with torch.no_grad():
-#         for (images, labels, *empty) in loader:
-#             images, labels = images.to(device), labels.to(device)
-#             outputs = model(images)
-#             total += criterion(outputs, labels.long())
-#             num_samples += len(labels)
-#     return total / num_samples
