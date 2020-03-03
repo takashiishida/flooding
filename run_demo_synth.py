@@ -36,7 +36,9 @@ def main():
 
     with mlflow.start_run() as run:
         for fl in fl_arr:
-            mlflow.run(uri=uri_mlproject, entry_point='synthetic', parameters=params, use_conda=False)
+            tmp_params = params.copy()
+            tmp_params['flood_level'] = fl
+            mlflow.run(uri=uri_mlproject, entry_point='synthetic', parameters=tmp_params, use_conda=False)
     
     query = 'tags."synth" = "True" and tags."simple" = "True" and attribute.status = "FINISHED"'
     df = get_data(query)
