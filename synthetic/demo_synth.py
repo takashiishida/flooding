@@ -174,20 +174,6 @@ def get_acc_loss(train_loader, vali_loader, test_loader, model, device):
     test_acc, test_loss = acc_check(loader=test_loader, model=model, device=device)    
     return train_acc, train_loss.item(), vali_acc, vali_loss.item(), test_acc, test_loss.item()
 
-
-def get_gradients(train_loader, vali_loader, test_loader, model, device):
-    tr_grad_norm = get_grad_norm(loader=train_loader, model=model, device=device)
-    va_grad_norm = get_grad_norm(loader=vali_loader, model=model, device=device)
-    te_grad_norm = get_grad_norm(loader=test_loader, model=model, device=device)
-    tr_fngrad_norm = get_fngrad_norm(loader=train_loader, model=model, device=device)
-    va_fngrad_norm = get_fngrad_norm(loader=vali_loader, model=model, device=device)
-    te_fngrad_norm = get_fngrad_norm(loader=test_loader, model=model, device=device)    
-    n_params = sum(p.numel() for p in model.parameters() if p.requires_grad)        
-    return tr_grad_norm.item(), va_grad_norm.item(), te_grad_norm.item(), \
-        tr_fngrad_norm.item(), va_fngrad_norm.item(), te_fngrad_norm.item(), \
-        n_params
-
-
 if __name__ == "__main__":                   
     args = get_args()                
     with mlflow.start_run() as run:        
