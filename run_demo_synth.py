@@ -7,7 +7,7 @@ from synthetic.make_graph_synth import make_graph
 
 
 def main():
-    uri_mlproject = os.getcwd()  # Assumes MLproject is preset in the current directory.
+    uri_mlproject = os.getcwd()  # Assumes MLproject is present in the current directory.
     mlflow.set_tracking_uri('sqlite:///mlflow_synth.db')
     basic_setting = {
         'labels': 'synth,simple',
@@ -32,7 +32,7 @@ def main():
     }
 
     params = dict(params_choices['setting1'], **basic_setting)  # Concatenate the configurations.
-    fl_arr = params.pop('fl_arr')  # Drop it; The python script wouldn't accept it as an argument.
+    fl_arr = params.pop('fl_arr')  # Drop it; mlflow only accepts parameters defined in MLproject.
 
     with mlflow.start_run() as run:
         for fl in fl_arr:
