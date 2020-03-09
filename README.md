@@ -19,7 +19,7 @@ loss = (loss-b).abs() + b  # b is the flooding level.
 and is compatible with any stochastic optimizer and other regularizers.
 <!-- With flooding, the model will continue to “random walk” with the same non-zero training loss, and we expect it to drift into an area with a flat loss landscape that leads to better generalization. -->
 ![](fig1.png)
-*Figures from [the paper](https://arxiv.org/abs/2002.08709): (a) shows 3 different concepts related to overfitting. [A] shows the generalization gap increases, while training & test losses decrease. [B] also shows the increasing gap, but the test loss starts to rise. [C] shows the training loss becoming (near-)zero. We avoid [C] by flooding the bottom area, visualized in (b), which forces the training loss to stay around a constant. This leads to a decreasing test loss once again. We confirm these claims in experiments with CIFAR-10 shown in (c)–(d).*
+*Figures from [the paper](https://arxiv.org/abs/2002.08709): (a) shows 3 different concepts related to overfitting. [A] shows the generalization gap increases, while training & test losses decrease. [B] also shows the increasing gap, but the test loss starts to rise. [C] shows the training loss becoming (near-)zero. We avoid [C] by flooding the bottom area, visualized in (b), which forces the training loss to stay around a constant. This leads to a decreasing test loss once again. The paper presents experiments with CIFAR-10 shown in (c)–(d) supporting these claims.*
 
 ## Demo
 
