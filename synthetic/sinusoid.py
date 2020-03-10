@@ -68,7 +68,7 @@ class Sinusoid2dimDataNumpy:
     
 
     def view(self):
-        x, _, y = self.sub_makeData(5000, 0.1)
+        x, _, y, _ = self.sub_makeData(5000, 0.1)
         import matplotlib.pyplot as plt
         
         plt.plot(x[y == 0, 0], x[y == 0, 1], 'rx')
