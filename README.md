@@ -27,11 +27,11 @@ and is compatible with any stochastic optimizer and other regularizers.
 - mlflow 1.5.0
 - matplotlib 3.1.1
 
-### Getting started
-Run the following demo for a simple demonstration of flooding with synthetic datasets.
-Two png files will be saved in your directory which is a visualization of the results with synthetic datasets.
-See the [paper](https://arxiv.org/abs/2002.08709) for the details of the synthetic datasets.
-
+### Execution
+Run the following python script for a simple demonstration of flooding with synthetic datasets:
 ```bash
 python run_demo_synth.py
 ```
+Two png files will be saved in your directory, which are visualizations of the results with synthetic datasets.
+See the [paper](https://arxiv.org/abs/2002.08709) for the details of the synthetic datasets.
+
