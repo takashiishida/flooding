@@ -91,16 +91,3 @@ class MyDataset(torch.utils.data.Dataset):
         out_label = self.label[idx]
         out_conf = self.conf[idx]
         return out_data, out_label, out_conf
-
-if __name__ == '__main__':
-    from models import *
-    from torch import nn
-    model = linear_model(10, 2)
-    a = GaussianDataNumpy(np.ones(10)*0, np.ones(10)*1)
-    x_tr, r_tr, y_tr, x_te, r_te, y_te = a.makeData()
-    dataset = MyDataset(x_tr, r_tr, y_tr)
-    dataloader = torch.utils.data.DataLoader(dataset, batch_size=2, shuffle=True)
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    x, y, r = iter(dataloader).next()
-    criterion = nn.CrossEntropyLoss(reduction='sum')
-    criterion(model(x), y)

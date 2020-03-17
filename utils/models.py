@@ -25,9 +25,6 @@ class mlp_model(nn.Module):
         self.fc5 = nn.Linear(middle_dim, output_dim)
 
     def forward(self, x):
-        if len(x.shape) == 4:
-            # for MNIST/Fashion/Kuzushiji
-            x = x.view(-1, self.num_flat_features(x))
         out = x
         out = self.relu1(self.bn1(self.fc1(out)))
         out = self.relu2(self.bn2(self.fc2(out)))
@@ -35,10 +32,3 @@ class mlp_model(nn.Module):
         out = self.relu4(self.bn4(self.fc4(out)))
         out = self.fc5(out)
         return out
-
-    def num_flat_features(self, x):
-        size = x.size()[1:]
-        num_features = 1
-        for s in size:
-            num_features *= s
-        return num_features

@@ -85,8 +85,8 @@ def main(args):
                 if loss_corrected != loss_mean:
                     flooded_count += 1
                 mini_batch_count += 1
-                optimizer.zero_grad() # Clear gradients w.r.t. parameters
-                loss_corrected.backward() # backprop.
+                optimizer.zero_grad()
+                loss_corrected.backward()
                 if args.gradient_norm > 0:
                     clip_grad_norm_(model.parameters(), args.gradient_norm)
                 optimizer.step()
@@ -104,7 +104,7 @@ def main(args):
         print('flood: {} rs: {}'.format(args.flood_level, args.random_seed))
         print('Epoch: {} LR: {} TrLss: {:.4g} VaLss: {:.4g} TeLss: {:.4g} TrAcc: {:.3g} VaAcc: {:.3g} TeAcc: {:.3g}'.format(
             epoch+1, current_lr, tr_loss, va_loss, te_loss, tr_acc, va_acc, te_acc))
-        print('TrClLss: {:.4g} VaClLss: {:.4g} TeClLss: {:.4g} TrClAcc: {:.3g} VaClAcc: {:.3g} TeAcc: {:.3g}'.format(
+        print('TrClLss: {:.4g} VaClLss: {:.4g} TeClLss: {:.4g} TrClAcc: {:.3g} VaClAcc: {:.3g} TeClAcc: {:.3g}'.format(
             tr_cl_loss, va_cl_loss, te_cl_loss, tr_cl_acc, va_cl_acc, te_cl_acc))
         print('Flood prop: {:.4g}'.format(proportion))        
             
@@ -173,20 +173,6 @@ def get_acc_loss(train_loader, vali_loader, test_loader, model, device):
     vali_acc, vali_loss = acc_check(loader=vali_loader, model=model, device=device)
     test_acc, test_loss = acc_check(loader=test_loader, model=model, device=device)    
     return train_acc, train_loss.item(), vali_acc, vali_loss.item(), test_acc, test_loss.item()
-
-
-def get_gradients(train_loader, vali_loader, test_loader, model, device):
-    tr_grad_norm = get_grad_norm(loader=train_loader, model=model, device=device)
-    va_grad_norm = get_grad_norm(loader=vali_loader, model=model, device=device)
-    te_grad_norm = get_grad_norm(loader=test_loader, model=model, device=device)
-    tr_fngrad_norm = get_fngrad_norm(loader=train_loader, model=model, device=device)
-    va_fngrad_norm = get_fngrad_norm(loader=vali_loader, model=model, device=device)
-    te_fngrad_norm = get_fngrad_norm(loader=test_loader, model=model, device=device)    
-    n_params = sum(p.numel() for p in model.parameters() if p.requires_grad)        
-    return tr_grad_norm.item(), va_grad_norm.item(), te_grad_norm.item(), \
-        tr_fngrad_norm.item(), va_fngrad_norm.item(), te_fngrad_norm.item(), \
-        n_params
-
 
 if __name__ == "__main__":                   
     args = get_args()                
