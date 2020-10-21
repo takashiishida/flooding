@@ -1,5 +1,5 @@
 # flooding
-Demo code for the flooding regularizer proposed in "[Do We Need Zero Training Loss After Achieving Zero Training Error?](https://arxiv.org/abs/2002.08709)" by Takashi Ishida, Ikko Yamane, Tomoya Sakai, Gang Niu, and Masashi Sugiyama.
+Demo code for the flooding regularizer proposed in "[Do We Need Zero Training Loss After Achieving Zero Training Error?](https://arxiv.org/abs/2002.08709)" (ICML 2020) by Takashi Ishida, Ikko Yamane, Tomoya Sakai, Gang Niu, and Masashi Sugiyama.
 
 ## Introduction
 
