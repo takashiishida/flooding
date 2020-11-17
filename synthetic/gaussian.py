@@ -43,7 +43,7 @@ class GaussianDataNumpy:
         y_clean = deepcopy(y)           
         if label_noise > 0:
             n = y.shape[0]
-            idx = np.random.permutation(n)[int(n*label_noise)]
+            idx = np.random.permutation(n)[:int(n*label_noise)]
             y[idx] *= -1
         y, y_clean = (y+1)//2, (y_clean+1)//2
         return x, r, y, y_clean
